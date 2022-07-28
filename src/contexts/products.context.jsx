@@ -3,12 +3,12 @@ import SHOP_DATA from "../shop-data.json";
 
 // as the actual value you want to access
 export const ProductsContext = createContext({
-    currentProducts: null,
+    currentProducts: [],
     setCurrentProducts: () => null,
 });
 
 export const ProductsProvider = ({ children }) => {
-    const [currentProducts, setCurrentProducts] = useState(null);
+    const [currentProducts, setCurrentProducts] = useState([]);
     const value = { currentProducts, setCurrentProducts };
 
     useEffect(() => {
