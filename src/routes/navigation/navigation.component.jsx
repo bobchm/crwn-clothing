@@ -22,7 +22,6 @@ const Navigation = () => {
                         <span
                             className="nav-link-signout"
                             onClick={signOutUser}
-                            title={currentUser.displayName}
                         >
                             SIGN OUT
                         </span>
