@@ -19,16 +19,16 @@ const CheckoutItem = ({ item }) => {
             <span className="name">{name}</span>
             <div className="quantity">
                 <span className="arrow" onClick={decrementItem}>
-                    &lt;
+                    &#10094;
                 </span>
                 <span className="value">{quantity}</span>
                 <span className="arrow" onClick={incrementItem}>
-                    &gt;
+                    &#10095;
                 </span>
             </div>
             <span className="price">{price}</span>
             <span className="remove-button" onClick={deleteItem}>
-                x
+                &#10005;
             </span>
         </div>
     );
