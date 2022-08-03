@@ -14,7 +14,7 @@ const DirectoryItem = ({ category, id }) => {
             />
             <div className="body" onClick={() => navigate(`shop/${title}`)}>
                 <h2>{title}</h2>
-                <p>Shop Nowish</p>
+                <p>Shop Now</p>
             </div>
         </div>
     );
