@@ -1,7 +1,6 @@
-import { createContext, useState, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils.js";
-import { USER_ACTION_TYPES } from "./user.context.jsx";
 
 // as the actual value you want to access
 export const CategoriesContext = createContext({
