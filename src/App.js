@@ -14,6 +14,8 @@ import Authentication from "./routes/authentication/authentication-component.jsx
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component.jsx";
 import { setCurrentUser } from "./store/user/user.action";
+import { getCategoriesAndDocuments } from "./utils/firebase/firebase.utils";
+import { setCategoriesMap } from "./store/categories/category.action";
 
 const App = () => {
     const dispatch = useDispatch();
