@@ -15,12 +15,19 @@ import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component.jsx";
 import { setCurrentUser } from "./store/user/user.action";
 import { getCategoriesAndDocuments } from "./utils/firebase/firebase.utils";
-import { setCategoriesMap } from "./store/categories/category.action";
+import { setCategories } from "./store/categories/category.action";
 
 const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const getCategoriesMap = async () => {
+            const categoriesArray = await getCategoriesAndDocuments(
+                "categories"
+            );
+            dispatch(setCategories(categoriesArray));
+        };
+        getCategoriesMap();
         const unsubscribe = onAuthStateChangedListener((user) => {
             if (user) {
                 createUserDocumentFromAuth(user);

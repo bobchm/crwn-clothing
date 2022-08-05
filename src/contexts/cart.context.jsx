@@ -54,9 +54,6 @@ export const CART_ACTION_TYPES = {
 const cartReducer = (state, action) => {
     const { type, payload } = action;
     const { cartItems } = state;
-    console.log(state);
-    console.log(payload);
-
     switch (type) {
         case CART_ACTION_TYPES.SET_IS_CART_OPEN:
             return {

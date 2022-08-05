@@ -1,8 +1,8 @@
 import { CATEGORIES_ACTION_TYPES } from "./category.types";
 
-export const setCategoriesMap = (cmap) => {
+export const setCategories = (cArray) => {
     return {
-        type: CATEGORIES_ACTION_TYPES.SET_CATEGORIES_MAP,
-        payload: cmap,
+        type: CATEGORIES_ACTION_TYPES.SET_CATEGORIES,
+        payload: cArray,
     };
 };
