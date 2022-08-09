@@ -14,20 +14,14 @@ import Authentication from "./routes/authentication/authentication-component.jsx
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component.jsx";
 import { setCurrentUser } from "./store/user/user.action";
-import { getCategoriesAndDocuments } from "./utils/firebase/firebase.utils";
-import { setCategories } from "./store/categories/category.action";
+import { fetchCategoriesAsync } from "./store/categories/category.action";
 
 const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const getCategoriesMap = async () => {
-            const categoriesArray = await getCategoriesAndDocuments(
-                "categories"
-            );
-            dispatch(setCategories(categoriesArray));
-        };
-        getCategoriesMap();
+        dispatch(fetchCategoriesAsync());
+
         const unsubscribe = onAuthStateChangedListener((user) => {
             if (user) {
                 createUserDocumentFromAuth(user);

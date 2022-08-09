@@ -1,5 +1,4 @@
 import { CART_ACTION_TYPES } from "./cart.types";
-import { selectCartItems } from "./cart.selector";
 
 const INITIAL_STATE = {
     isCartOpen: false,
