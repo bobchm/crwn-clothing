@@ -14,13 +14,13 @@ import Authentication from "./routes/authentication/authentication-component.jsx
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component.jsx";
 import { setCurrentUser } from "./store/user/user.action";
-import { fetchCategoriesAsync } from "./store/categories/category.action";
+import { fetchCategoriesStart } from "./store/categories/category.action";
 
 const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchCategoriesAsync());
+        dispatch(fetchCategoriesStart());
 
         const unsubscribe = onAuthStateChangedListener((user) => {
             if (user) {
