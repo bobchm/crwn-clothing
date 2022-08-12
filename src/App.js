@@ -3,17 +3,12 @@ import { useDispatch } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
 
-import {
-    onAuthStateChangedListener,
-    createUserDocumentFromAuth,
-} from "./utils/firebase/firebase.utils";
-
 import Navigation from "./routes/navigation/navigation.component.jsx";
 import Home from "./routes/home/home.component.jsx";
 import Authentication from "./routes/authentication/authentication-component.jsx";
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component.jsx";
-import { setCurrentUser } from "./store/user/user.action";
+import { checkUserSession } from "./store/user/user.action";
 import { fetchCategoriesStart } from "./store/categories/category.action";
 
 const App = () => {
@@ -21,15 +16,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(fetchCategoriesStart());
-
-        const unsubscribe = onAuthStateChangedListener((user) => {
-            if (user) {
-                createUserDocumentFromAuth(user);
-            }
-            dispatch(setCurrentUser(user));
-        });
-
-        return unsubscribe;
+        dispatch(checkUserSession());
     }, []);
 
     return (
