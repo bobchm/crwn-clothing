@@ -1,4 +1,9 @@
+import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useSelector } from "react-redux";
+
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectCartItems } from "../../store/cart/cart.selector";
 
 import Button from "../button/button.component";
 
@@ -7,11 +12,19 @@ import { PaymentFormContainer, FormContainer } from "./payment-form.styles";
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
+    const currentUser = useSelector(selectCurrentUser);
+    const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+
+    const cartItems = useSelector(selectCartItems);
+    var amount = 0;
+    cartItems.forEach((item) => (amount += item.quantity * item.price));
 
     const paymentHandler = async (e) => {
         e.preventDefault();
 
         if (!stripe || !elements) return;
+
+        setIsProcessingPayment(true);
 
         const response = await fetch(
             "/.netlify/functions/create-payment-intent",
@@ -20,7 +33,7 @@ const PaymentForm = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ amount: 10000 }),
+                body: JSON.stringify({ amount: amount * 100 }),
             }
         ).then((res) => res.json());
 
@@ -34,10 +47,12 @@ const PaymentForm = () => {
             payment_method: {
                 card: elements.getElement(CardElement),
                 billing_details: {
-                    name: "Bob Cunningham",
+                    name: currentUser ? currentUser.displayName : "Guest",
                 },
             },
         });
+
+        setIsProcessingPayment(false);
 
         if (paymentResult.error) {
             alert(paymentResult.error);
@@ -53,7 +68,9 @@ const PaymentForm = () => {
             <FormContainer onSubmit={paymentHandler}>
                 <h2>Credit Card Payment: </h2>
                 <CardElement />
-                <Button buttonType="inverted">Pay Now</Button>
+                <Button isLoading={isProcessingPayment} buttonType="inverted">
+                    Pay Now
+                </Button>
             </FormContainer>
         </PaymentFormContainer>
     );
